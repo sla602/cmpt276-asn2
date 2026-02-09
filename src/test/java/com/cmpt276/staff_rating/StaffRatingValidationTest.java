@@ -27,7 +27,7 @@ class StaffRatingValidationTest {
     void invalidEmail_isRejected() {
         StaffRating rating = new StaffRating();
         rating.setName("Test");
-        rating.setEmail("not-an-email");
+        rating.setEmail("not-an-email"); // ❌
         rating.setRoleType(RoleType.PROF);
         rating.setClarity(5);
         rating.setNiceness(5);
@@ -45,6 +45,21 @@ class StaffRatingValidationTest {
         rating.setEmail("test@uni.ca");
         rating.setRoleType(RoleType.TA);
         rating.setClarity(20); // ❌
+        rating.setNiceness(5);
+        rating.setKnowledgeableScore(5);
+
+        Set<ConstraintViolation<StaffRating>> violations = validator.validate(rating);
+
+        assertThat(violations).isNotEmpty();
+    }
+
+    @Test
+    void scoreMissingField_isRejected() {
+        StaffRating rating = new StaffRating();
+        rating.setName(null); // ❌
+        rating.setEmail("test@uni.ca");
+        rating.setRoleType(RoleType.TA);
+        rating.setClarity(6); 
         rating.setNiceness(5);
         rating.setKnowledgeableScore(5);
 

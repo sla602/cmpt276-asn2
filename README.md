@@ -8,8 +8,12 @@
 ### Tech Stack
 - Spring Boot
 - Thymeleaf
-- JPA / H2
+- JPA / PostgreSQL
 - Maven
+- Docker
 
 ### How to Run
 ./mvnw spring-boot:run
+
+Email uniqueness is enforced at the controller level using a repository check.
+User-friendly validation messages are shown instead of database exceptions.

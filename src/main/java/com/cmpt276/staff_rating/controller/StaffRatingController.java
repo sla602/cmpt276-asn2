@@ -24,6 +24,7 @@ public class StaffRatingController {
 
     private final StaffRatingRepository staffRatingRepository;
 
+
     public StaffRatingController(StaffRatingRepository staffRatingRepository) {
         this.staffRatingRepository = staffRatingRepository;
     }
@@ -47,6 +48,14 @@ public class StaffRatingController {
             BindingResult bindingResult,
             Model model) {
 
+        if (!bindingResult.hasFieldErrors("email")
+            && staffRatingRepository.existsByEmail(staffRating.getEmail())) {
+        bindingResult.rejectValue(
+                "email",
+                "duplicate",
+                "This email is already used"
+            );
+        }
         if (bindingResult.hasErrors()) {
             model.addAttribute("roleTypes", RoleType.values());
             return "create";
@@ -57,7 +66,7 @@ public class StaffRatingController {
     }
 
     @GetMapping("/ratings/{id}")
-    public String ShowDetail(@PathVariable Long id, Model model) {
+    public String showDetail(@PathVariable Long id, Model model) {
         StaffRating rating = staffRatingRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Invalid rating id"));
         model.addAttribute("rating", rating);
@@ -80,6 +89,16 @@ public class StaffRatingController {
         @Valid @ModelAttribute("staffRating") StaffRating staffRating,
         BindingResult bindingResult,
         Model model) {
+
+             if (!bindingResult.hasFieldErrors("email")
+            && staffRatingRepository.existsByEmailAndIdNot(
+                    staffRating.getEmail(), id)) {
+        bindingResult.rejectValue(
+                "email",
+                "duplicate",
+                "This email is already used by another entry"
+            );
+        }
             if (bindingResult.hasErrors()) {
                 model.addAttribute("roleTypes", RoleType.values());
                 return "edit";
@@ -91,9 +110,9 @@ public class StaffRatingController {
 
     @PostMapping("/ratings/{id}/delete")
     public String deleteRating(@PathVariable Long id) {
-        staffRatingRepository.deleteById(id);
+        if (staffRatingRepository.existsById(id)) {
+            staffRatingRepository.deleteById(id);
+        }
         return "redirect:/";
     }
-    
-    
 }

@@ -23,6 +23,7 @@ public class StaffRating {
     @Column(unique = true)
     private String email;
 
+    @NotNull(message = "Role type is required")
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
 
@@ -130,10 +131,10 @@ public class StaffRating {
         return profile.displayTitle(this.name);
     }
 
-    @Transient
     public double getOverallScore() {
-        return (clarity + niceness + knowledgeableScore) / 3.0;
-    }
+    return (clarity + niceness + knowledgeableScore) / 3.0;
+}
+
 
 }
 
