@@ -12,8 +12,11 @@
 - Maven
 - Docker
 
-### How to Run
+### How to Run Locally
 ./mvnw spring-boot:run
 
-Email uniqueness is enforced at the controller level using a repository check.
-User-friendly validation messages are shown instead of database exceptions.
+### How to Run Tests
+./mvnw test
+
+## Deployment
+Deployed on Render using PostgreSQL with environment variables.
