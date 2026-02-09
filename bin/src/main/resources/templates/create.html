@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Staff Rating</title>
+</head>
+<body>
+
+<h1>Add Staff Rating</h1>
+
+<form th:action="@{/ratings}" th:object="${staffRating}" method="post">
+
+    <div>
+        Name:
+        <input type="text" th:field="*{name}">
+        <span th:errors="*{name}"></span>
+    </div>
+
+    <div>
+        Email:
+        <input type="email" th:field="*{email}">
+        <span th:errors="*{email}"></span>
+    </div>
+
+    <div>
+        Role:
+        <select th:field="*{roleType}">
+            <option th:each="role : ${roleTypes}"
+                    th:value="${role}"
+                    th:text="${role}">
+            </option>
+        </select>
+    </div>
+
+    <div>
+        Clarity:
+        <input type="number" th:field="*{clarity}">
+        <span th:errors="*{clarity}"></span>
+    </div>
+
+    <div>
+        Niceness:
+        <input type="number" th:field="*{niceness}">
+        <span th:errors="*{niceness}"></span>
+    </div>
+
+    <div>
+        Knowledgeable:
+        <input type="number" th:field="*{knowledgeableScore}">
+        <span th:errors="*{knowledgeableScore}"></span>
+    </div>
+
+    <div>
+        Comment:
+        <textarea th:field="*{comment}"></textarea>
+        <span th:errors="*{comment}"></span>
+    </div>
+
+    <button type="submit">Save</button>
+
+</form>
+
+<a href="/">Back</a>
+
+</body>
+</html>

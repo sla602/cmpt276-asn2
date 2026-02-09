@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Rating Detail</title>
+</head>
+<body>
+    <h1>Staff Rating Detail</h1>
+
+    <p><strong>Title:</strong> <span th:text="${rating.displayTitle}"></span> </p>
+
+    <p><b>Name:</b> <span th:text="${rating.name}"></span></p>
+    <p><b>Email:</b> <span th:text="${rating.email}"></span></p>
+    <p><b>Role:</b> <span th:text="${rating.roleType}"></span></p>
+
+    <p><b>Clarity:</b> <span th:text="${rating.clarity}"></span></p>
+    <p><b>Niceness:</b> <span th:text="${rating.niceness}"></span></p>
+    <p><b>Knowledgeable:</b> <span th:text="${rating.knowledgeableScore}"></span></p>
+    <p><b>Overall Score:</b> <span th:text="${rating.overallScore}"></span></p>
+ 
+    <p><b>Comment:</b> <span th:text="${rating.comment}"></span></p>
+    <a th:href="@{/ratings/{id}/edit(id=${rating.id})}">Edit</a>
+    <form th:action="@{/ratings/{id}/delete(id=${rating.id})}"
+      method="post"
+      onsubmit="return confirm('Delete this rating?');">
+
+    <button type="submit">Delete</button>
+</form>
+
+    </form>
+    <a href="/">Back to list</a>
+    
+</body>
+</html>
